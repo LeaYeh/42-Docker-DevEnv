@@ -1,0 +1,9 @@
+version: '3'
+services:
+  run-container:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    command: ["zsh", "-c", "tail -f /dev/null"]
