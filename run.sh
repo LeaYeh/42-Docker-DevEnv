@@ -1,5 +1,5 @@
-# curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/Dockerfile -o Dockerfile
-# curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/docker-compose.yml -o docker-compose.yml
+curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/Dockerfile -o Dockerfile
+curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/docker-compose.yml -o docker-compose.yml
 
 docker build --build-arg USER=$USER -t develop-env .
 # docker build --progress=plain --build-arg USER=$USER -t develop-env .
