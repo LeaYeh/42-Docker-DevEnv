@@ -4,6 +4,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        USER: ${USER}
     volumes:
       - .:/app
-    command: ["zsh", "-c", "tail -f /dev/null"]
+    environment:
+      - USER=${USER}
+    # user: $USER
+    command: ["sleep", "infinity"]

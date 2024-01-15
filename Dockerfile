@@ -3,6 +3,7 @@ FROM ubuntu:latest
 
 # Update the system and install utils
 RUN apt-get update && apt-get install -y \
+    sudo \
     valgrind \
     build-essential \
     binutils \
@@ -27,7 +28,13 @@ RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz && \
 # Install oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
-SHELL ["/bin/zsh", "-c"]
+
+# Set up the user as a sudoer
+ARG USER
+RUN sudo adduser --disabled-password --gecos "" $USER
+RUN sudo usermod -aG sudo $USER
+RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
+USER $USER
 
 # Upgrade pip and setuptools and install norminette
 RUN python3 -m pip install --upgrade pip setuptools
@@ -38,3 +45,6 @@ RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/maste
 
 # Set the working directory in the container to /app
 WORKDIR /app
+
+RUN getent group sudo
+RUN sudo chown -R $USER:$USER /app

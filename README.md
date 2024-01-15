@@ -19,9 +19,9 @@ Before you begin, ensure you have met the following requirements:
 ### Run-up container
 Download related files, build image and run up container:
 
-'''sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/Dockerfile && curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/docker-compose.yml && curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh && bash run.sh)"
-'''
+```sh
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh && bash run.sh)"
+```
 
 ## Usage
 
