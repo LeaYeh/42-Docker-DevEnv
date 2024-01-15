@@ -17,7 +17,8 @@ Before you begin, ensure you have met the following requirements:
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
 ### Run-up container
-Download related files, build image and run up container:
+
+Download related files, build image and run up container (only need to do this at the first time or Dockerfile update):
 
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh && bash run.sh)"
@@ -73,7 +74,7 @@ Occur confiliction when rebase...
 
 #### Step 3
 
-Push the feature branch to the remote repository branch 
+Push the feature branch to the remote repository branch
 PS: Because we use `rebase` to change the history, so it's necessary force push.
 
 ```
