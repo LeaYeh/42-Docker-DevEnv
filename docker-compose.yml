@@ -10,5 +10,5 @@ services:
       - .:/app
     environment:
       - USER=${USER}
-    # user: $USER
+    user: $USER
     command: ["sleep", "infinity"]

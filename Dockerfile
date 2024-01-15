@@ -2,7 +2,7 @@
 FROM ubuntu:latest
 
 # Update the system and install utils
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     sudo \
     valgrind \
     build-essential \
