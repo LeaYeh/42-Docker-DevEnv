@@ -33,5 +33,8 @@ SHELL ["/bin/zsh", "-c"]
 RUN python3 -m pip install --upgrade pip setuptools
 RUN python3 -m pip install norminette
 
+# Install francinette
+RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
+
 # Set the working directory in the container to /app
 WORKDIR /app
