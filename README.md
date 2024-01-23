@@ -21,7 +21,7 @@ Before you begin, ensure you have met the following requirements:
 Download related files, build image and run up container (only need to do this at the first time or Dockerfile update):
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh && bash run.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh)"
 ```
 
 ## Usage
