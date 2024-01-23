@@ -54,5 +54,6 @@ RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/maste
 # Set the working directory in the container to /app
 WORKDIR /app
 
+RUN sudo chmod -R 755 /app
 RUN getent group sudo
 RUN sudo chown -R $USER:$USER /app
