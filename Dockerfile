@@ -40,6 +40,13 @@ USER $USER
 RUN python3 -m pip install --upgrade pip setuptools
 RUN python3 -m pip install norminette
 
+# Install MLX library
+RUN git clone https://github.com/42Paris/minilibx-linux.git && \
+    cd minilibx-linux && \
+    make && \
+    sudo cp mlx.h /usr/local/include && \
+    sudo cp libmlx.a /usr/local/lib
+
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
