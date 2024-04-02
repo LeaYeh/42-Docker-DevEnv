@@ -35,7 +35,7 @@ We welcome contributions from our peers. If you have improvements or features yo
 
 #### Step 1.
 
-Create new feature branch for each feature, the feature develop life cycle should be around hours work.
+Fork and create a new feature branch.
 
 ```
 > git checkout -b feat-<NAME>
@@ -43,7 +43,7 @@ Create new feature branch for each feature, the feature develop life cycle shoul
 
 #### Step 2.
 
-After your work, checkout back to the main branch and align with the latest version again. Then checkout to feature branch and rebase with main branch.
+After your work, checkout back to the main branch and update to the latest version again. Then checkout to the feature branch and rebase with main branch.
 
 ```
 > git checkout main
@@ -55,15 +55,15 @@ After your work, checkout back to the main branch and align with the latest vers
 
 #### Step 2.a
 
-No confiliction happend! Go to the Step 3.
+No conflicts happend! Go to the Step 3.
 
 #### Step 2.b
 
-Occur confiliction when rebase...
+Conflicts occured when rebasing...
 
-1. First, git will pause the rebase and allow you to fix the conflict. You can see which files contain conflicts by running git status.
+1. First, git will pause the rebase and allow you to fix the conflict. You can see which files contain conflicts by running `git status`.
 
-2. Open the file with conflicts. Git marks conflicts in the source code with <<<<<<<, =======, and >>>>>>>. The code between <<<<<<< and ======= is your local changes and the code between ======= and >>>>>>> is the incoming changes. You need to manually edit the file to resolve the conflict.
+2. Open the file with conflicts. Git marks conflicts in the source code with `<<<<<<<`, `=======`, and `>>>>>>>`. The code between `<<<<<<<` and `=======` are your local changes and the code between `=======` and `>>>>>>>` are the incoming changes. You need to manually edit the file to resolve the conflict.
 
 3. After you've resolved the conflict, you need to add the resolved files to the staging area and continue the rebase process.
 
@@ -74,8 +74,8 @@ Occur confiliction when rebase...
 
 #### Step 3
 
-Push the feature branch to the remote repository branch
-PS: Because we use `rebase` to change the history, so it's necessary force push.
+Push the feature branch to the remote repository branch.
+PS: Because we use `rebase` to change the history, it's necessary to force push.
 
 ```
 > git push origin feat-<NAME> --force
@@ -83,8 +83,4 @@ PS: Because we use `rebase` to change the history, so it's necessary force push.
 
 #### Step 4
 
-Make a pull request and wait for the review and merge by your pear.
-
-## License
-
-Include information about the license, if any.
+Make a pull request on GitHub and wait for the review.
