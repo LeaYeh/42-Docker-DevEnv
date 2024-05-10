@@ -48,6 +48,9 @@ RUN cd $HOME && \
     sudo cp mlx.h /usr/local/include && \
     sudo cp libmlx.a /usr/local/lib
 
+# Install C unit testing framework `check`
+RUN sudo apt-get install check
+
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
