@@ -4,18 +4,22 @@ FROM ubuntu:latest
 # Update the system and install utils
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     sudo \
+    cmake \
+    meson \
     valgrind \
     build-essential \
     binutils \
-    clang-12 \
+    clang \
     git \
     zsh \
     wget \
     curl \
-    python3 python3-pip \
+    python3 python3-venv python3-pip \
     libreadline-dev \
     libreadline8 \
-    xorg libxext-dev zlib1g-dev libbsd-dev
+    xorg libxext-dev zlib1g-dev libbsd-dev \
+    libcmocka-dev \
+    pkg-config
 
 # Download and install the latest version of make
 RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz && \
@@ -23,18 +27,16 @@ RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz && \
     cd make-4.3 && \
     ./configure && \
     make && \
-    make install
+    sudo make install
 
 # Install oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
-# Set up the user as a sudoer
-ARG USER
-RUN sudo adduser --disabled-password --gecos "" $USER
-RUN sudo usermod -aG sudo $USER
-RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
-USER $USER
+# Create a virtual environment and activate it
+RUN python3 -m venv /opt/venv
+RUN chown -R $USER:$USER /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
 
 # Upgrade pip and setuptools and install norminette
 RUN python3 -m pip install --upgrade pip setuptools
@@ -48,8 +50,20 @@ RUN cd $HOME && \
     sudo cp mlx.h /usr/local/include && \
     sudo cp libmlx.a /usr/local/lib
 
-# Install C unit testing framework `check`
-RUN sudo apt-get install check
+# Set up the user as a sudoer
+ARG USER
+RUN sudo adduser --disabled-password --gecos "" $USER
+RUN sudo usermod -aG sudo $USER
+RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
+
+USER $USER
+
+# Clone and build Criterion
+RUN git clone --recursive https://github.com/Snaipe/Criterion.git /home/$USER/Criterion && \
+    cd /home/$USER/Criterion && \
+    meson setup build && \
+    ninja -C build && \
+    sudo ninja -C build install
 
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
