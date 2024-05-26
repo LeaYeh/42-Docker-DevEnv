@@ -11,4 +11,4 @@ services:
     environment:
       - USER=${USER}
     user: $USER
-    command: ["sleep", "infinity"]
+    command: ["sh", "-c", "sudo chmod -R 755 /app && sleep infinity"]

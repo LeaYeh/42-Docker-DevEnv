@@ -10,8 +10,8 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
     binutils \
     clang \
-    git \
     zsh \
+    git \
     wget \
     curl \
     python3 python3-venv python3-pip \
@@ -29,10 +29,6 @@ RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz && \
     make && \
     sudo make install
 
-# Install oh-my-zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
-RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
-
 # Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
 RUN chown -R $USER:$USER /opt/venv
@@ -49,14 +45,6 @@ RUN cd $HOME && \
     make && \
     sudo cp mlx.h /usr/local/include && \
     sudo cp libmlx.a /usr/local/lib
-
-# Set up the user as a sudoer
-ARG USER
-RUN sudo adduser --disabled-password --gecos "" $USER
-RUN sudo usermod -aG sudo $USER
-RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
-
-USER $USER
 
 # Clone and build Criterion
 RUN git clone --recursive https://github.com/Snaipe/Criterion.git /home/$USER/Criterion && \
@@ -77,9 +65,19 @@ RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/maste
 #     && sudo apt install gh -y
 # RUN gh extension install https://github.com/nektos/gh-act
 
+# Set up the user as a sudoer
+ARG USER
+RUN sudo adduser --disabled-password --gecos "" $USER
+RUN sudo usermod -aG sudo $USER
+RUN sudo usermod -s /usr/bin/zsh $USER
+RUN echo "$USER ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USER
+
 # Set the working directory in the container to /app
 WORKDIR /app
 
-RUN sudo chmod -R 755 /app
-RUN getent group sudo
-RUN sudo chown -R $USER:$USER /app
+USER $USER
+
+# Install oh-my-zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
+
