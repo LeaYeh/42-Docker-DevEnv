@@ -10,8 +10,8 @@ This repository is created for 42Campus students to have the same environment as
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed the latest version of [Docker](https://docs.docker.com/get-docker/)
-- Intall vscode plugin:
+- Install the latest version of [Docker](https://docs.docker.com/get-docker/)
+- Install VS Code extensions:
     * [Remote Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
     * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
@@ -26,8 +26,8 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 
 ## Usage
 
-Attech the container to new vscode window.
-![screenshot](doc/img/HowToAttechWithVScode.png)
+Attach the container to new VS Code window.
+![screenshot](doc/img/HowToAttachWithVScode.png)
 
 ## Contributing
 
@@ -55,7 +55,7 @@ After your work, checkout back to the main branch and update to the latest versi
 
 #### Step 2.a
 
-No conflicts happend! Go to the Step 3.
+No conflicts happened! Go to the Step 3.
 
 #### Step 2.b
 
