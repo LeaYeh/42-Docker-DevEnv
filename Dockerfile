@@ -55,3 +55,5 @@ RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
 # Set the working directory in the container to /app
 WORKDIR /app
+
+CMD ["/bin/zsh"]
