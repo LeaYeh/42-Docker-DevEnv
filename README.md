@@ -4,9 +4,7 @@
 
 This repository is created for 42Campus students to have the same environment as in campus PCs. The goal is to make remote work as seamless and productive as possible.
 
-## Installation
-
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
@@ -16,7 +14,29 @@ Before you begin, ensure you have met the following requirements:
     * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Run-up container
+---
+
+# Option 1: VS Code specific Dev Container
+
+## Installation
+
+1. Make sure you are in the **root** directory of the project you want to run in a container.
+
+2. Download the `.devcontainer` directory into the root of your project with the following command:
+   ```sh
+   bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/install.sh)"
+   ```
+
+## Usage
+
+Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`.
+![screenshot](doc/img/ReopenInContainer.png)
+
+---
+
+# Option 2: Generic Docker Container
+
+## Installation
 
 Download related files, build image and run up container (only need to do this at the first time or Dockerfile update):
 
@@ -29,7 +49,9 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 Attach the container to new VS Code window.
 ![screenshot](doc/img/HowToAttachWithVScode.png)
 
-## Contributing
+---
+
+# Contributing
 
 We welcome contributions from our peers. If you have improvements or features you'd like to add, please follow these steps:
 
