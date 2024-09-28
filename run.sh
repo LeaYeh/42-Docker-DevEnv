@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/Dockerfile -o Dockerfile
 curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/docker-compose.yml -o docker-compose.yml
 
