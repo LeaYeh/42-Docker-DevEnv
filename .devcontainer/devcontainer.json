@@ -1,0 +1,33 @@
+{
+	"name": "42-Docker-DevEnv",
+	"build": {
+		"dockerfile": "Dockerfile"
+	},
+	"runArgs": [
+		"--privileged"
+	],
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"terminal.integrated.shell.linux": "/bin/zsh"
+			},
+			"extensions": [
+				"ms-vscode.cpptools-extension-pack",
+				"ms-python.python",
+				"eamodio.gitlens",
+				"github.copilot",
+				"kube.42header",
+				"DoKca.42-ft-count-line"
+			]
+		}
+	},
+	"initializeCommand": "touch ${env:HOME}/.ssh ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
+	"mounts": [
+		"source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+		"source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
+		"source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
+	],
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+	"remoteUser": "root"
+}

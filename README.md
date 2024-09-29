@@ -4,32 +4,54 @@
 
 This repository is created for 42Campus students to have the same environment as in campus PCs. The goal is to make remote work as seamless and productive as possible.
 
-## Installation
-
-### Prerequisites
+## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
-- You have installed the latest version of [Docker](https://docs.docker.com/get-docker/)
-- Intall vscode plugin:
+- Install the latest version of [Docker](https://docs.docker.com/get-docker/)
+- Install VS Code extensions:
     * [Remote Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
     * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
-### Run-up container
+---
+
+# Option 1: VS Code specific Dev Container
+
+## Installation
+
+1. Make sure you are in the **root** directory of the project you want to run in a container.
+
+2. Download the `.devcontainer` directory into the root of your project with the following command:
+   ```sh
+   bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/install.sh)"
+   ```
+
+## Usage
+
+Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`.
+![screenshot](doc/img/ReopenInContainer.png)
+
+---
+
+# Option 2: Generic Docker Container
+
+## Installation
 
 Download related files, build image and run up container (only need to do this at the first time or Dockerfile update):
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/run.sh)"
 ```
 
 ## Usage
 
-Attech the container to new vscode window.
-![screenshot](doc/img/HowToAttechWithVScode.png)
+Attach the container to new VS Code window.
+![screenshot](doc/img/HowToAttachWithVScode.png)
 
-## Contributing
+---
+
+# Contributing
 
 We welcome contributions from our peers. If you have improvements or features you'd like to add, please follow these steps:
 
@@ -55,7 +77,7 @@ After your work, checkout back to the main branch and update to the latest versi
 
 #### Step 2.a
 
-No conflicts happend! Go to the Step 3.
+No conflicts happened! Go to the Step 3.
 
 #### Step 2.b
 
