@@ -24,7 +24,7 @@ Before you begin, ensure you have met the following requirements:
 
 2. Download the `.devcontainer` directory into the root of your project with the following command:
    ```sh
-   bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/install.sh)"
+   bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/install.sh)"
    ```
 
 ## Usage
@@ -41,7 +41,7 @@ Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in 
 Download related files, build image and run up container (only need to do this at the first time or Dockerfile update):
 
 ```sh
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/master/run.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/run.sh)"
 ```
 
 ## Usage
