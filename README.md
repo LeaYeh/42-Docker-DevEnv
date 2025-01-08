@@ -4,6 +4,8 @@
 
 This repository is created for 42Campus students to have the same environment as in campus PCs. The goal is to make remote work as seamless and productive as possible.
 
+The configuration is based on 42 Vienna's installed versions and tools.
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
