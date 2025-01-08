@@ -18,11 +18,23 @@
 			},
 			"extensions": [
 				"ms-vscode.cpptools-extension-pack",
+				"llvm-vs-code-extensions.vscode-clangd",
+				"vadimcn.vscode-lldb",
 				"ms-python.python",
 				"eamodio.gitlens",
 				"github.copilot",
+				"jeff-hykin.better-cpp-syntax",
+				"solomonkinard.workspace-include-what-you-use",
+				"bbenoist.togglehs",
+				"ms-vscode.makefile-tools",
+				"timonwong.shellcheck",
+				"esbenp.prettier-vscode",
 				"kube.42header",
-				"DoKca.42-ft-count-line"
+				"DoKca.42-ft-count-line",
+				"ms-vsliveshare.vsliveshare",
+				"dqisme.sync-scroll",
+				"uctakeoff.vscode-counter",
+				"tomoki1207.pdf"
 			]
 		}
 	},
