@@ -105,7 +105,7 @@ RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/maste
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
-# Set the working directory in the container to /app
-WORKDIR /app
+# Set the working directory in the container
+WORKDIR /workspace
 
 CMD ["/bin/zsh"]
