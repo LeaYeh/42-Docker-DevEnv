@@ -61,25 +61,25 @@ RUN wget https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 \
     && rm -rf valgrind-3.18.1*
 
 # Make 4.3
-RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz && \
-	tar -xvzf make-4.3.tar.gz && \
-	cd make-4.3 && \
-	./configure && \
-	make && \
-	sudo make install && \
-    cd .. && \
-    rm -rf make-4.3*
+RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz \
+    && tar -xvzf make-4.3.tar.gz \
+    && cd make-4.3 \
+    && ./configure \
+    && make \
+    && sudo make install \
+    && cd .. \
+    && rm -rf make-4.3*
 
 # Readline 8.1
-RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz && \
-    tar -xzvf readline-8.1.tar.gz && \
-    cd readline-8.1 && \
-    ./configure --enable-shared && \
-    make && \
-    sudo make install && \
-    sudo ldconfig && \
-    cd .. && \
-    rm -rf readline-8.1*
+RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz \
+    && tar -xzvf readline-8.1.tar.gz \
+    && cd readline-8.1 \
+    && ./configure --enable-shared \
+    && make \
+    && sudo make install \
+    && sudo ldconfig \
+    && cd .. \
+    && rm -rf readline-8.1*
 
 # Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
@@ -91,12 +91,12 @@ RUN python3 -m pip install --upgrade pip setuptools
 RUN python3 -m pip install norminette
 
 # Install MLX library
-RUN cd $HOME && \
-    git clone https://github.com/42Paris/minilibx-linux.git && \
-    cd minilibx-linux && \
-    make && \
-    sudo cp mlx.h /usr/local/include && \
-    sudo cp libmlx.a /usr/local/lib
+RUN cd $HOME \
+    && git clone https://github.com/42Paris/minilibx-linux.git \
+    && cd minilibx-linux \
+    && make \
+    && sudo cp mlx.h /usr/local/include \
+    && sudo cp libmlx.a /usr/local/lib
 
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
