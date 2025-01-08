@@ -3,6 +3,11 @@
 	"build": {
 		"dockerfile": "Dockerfile"
 	},
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils": {
+			"configureZshAsDefaultShell": true
+		}
+    },
 	"runArgs": [
 		"--privileged"
 	],
