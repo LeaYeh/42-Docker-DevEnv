@@ -1,45 +1,43 @@
 {
-	"name": "42-Docker-DevEnv",
-	"build": {
-		"dockerfile": "Dockerfile"
-	},
-	"runArgs": [
-		"--privileged"
-	],
-	"customizations": {
-		"vscode": {
-			"settings": {
-				"terminal.integrated.shell.linux": "/bin/zsh"
-			},
-			"extensions": [
-				"ms-vscode.cpptools-extension-pack",
-				"llvm-vs-code-extensions.vscode-clangd",
-				"vadimcn.vscode-lldb",
-				"ms-python.python",
-				"eamodio.gitlens",
-				"github.copilot",
-				"jeff-hykin.better-cpp-syntax",
-				"solomonkinard.workspace-include-what-you-use",
-				"bbenoist.togglehs",
-				"ms-vscode.makefile-tools",
-				"timonwong.shellcheck",
-				"esbenp.prettier-vscode",
-				"kube.42header",
-				"DoKca.42-ft-count-line",
-				"ms-vsliveshare.vsliveshare",
-				"dqisme.sync-scroll",
-				"uctakeoff.vscode-counter",
-				"tomoki1207.pdf"
-			]
-		}
-	},
-	"initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
-	"mounts": [
-		"source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-		"source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
-		"source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
-	],
-	"workspaceFolder": "/workspace",
-	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
-	"remoteUser": "root"
+    "name": "42-Docker-DevEnv",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "runArgs": ["--privileged"],
+    "customizations": {
+        "vscode": {
+            "settings": {
+                "terminal.integrated.shell.linux": "/bin/zsh"
+            },
+            "extensions": [
+                "ms-vscode.cpptools-extension-pack",
+                "llvm-vs-code-extensions.vscode-clangd",
+                "vadimcn.vscode-lldb",
+                "ms-python.python",
+                "eamodio.gitlens",
+                "github.copilot",
+                "jeff-hykin.better-cpp-syntax",
+                "solomonkinard.workspace-include-what-you-use",
+                "bbenoist.togglehs",
+                "ms-vscode.makefile-tools",
+                "timonwong.shellcheck",
+                "esbenp.prettier-vscode",
+                "kube.42header",
+                "DoKca.42-ft-count-line",
+                "ms-vsliveshare.vsliveshare",
+                "dqisme.sync-scroll",
+                "uctakeoff.vscode-counter",
+                "tomoki1207.pdf"
+            ]
+        }
+    },
+    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
+    "mounts": [
+        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
+        "source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
+        "source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
+    ],
+    "workspaceFolder": "/app",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+    "remoteUser": "root"
 }

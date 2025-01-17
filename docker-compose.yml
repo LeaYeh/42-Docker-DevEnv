@@ -7,12 +7,12 @@ services:
       args:
         USER: ${USER}
     volumes:
-      - .:/workspace
+      - .:/app
       - ${HOME}/.ssh:/root/.ssh:cached
       - ${HOME}/.gitconfig:/root/.gitconfig:cached
       - ${HOME}/.zshrc:/root/.zshrc:cached
     environment:
       - USER=${USER}
     user: root
-    command: ["sh", "-c", "sudo chmod -R 755 /workspace && sleep infinity"]
+    command: ["sh", "-c", "sudo chmod -R 755 /app && sleep infinity"]
     privileged: true

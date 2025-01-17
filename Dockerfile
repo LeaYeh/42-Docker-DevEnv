@@ -106,6 +106,6 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
 # Set the working directory in the container
-WORKDIR /workspace
+WORKDIR /app
 
 CMD ["/bin/zsh"]
