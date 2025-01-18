@@ -36,8 +36,5 @@
         "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
         "source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
         "source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
-    ],
-    "workspaceFolder": "/app",
-    "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
-    "remoteUser": "root"
+    ]
 }
