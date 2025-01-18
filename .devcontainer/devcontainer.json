@@ -11,23 +11,21 @@
             },
             "extensions": [
                 "ms-vscode.cpptools-extension-pack",
-                "llvm-vs-code-extensions.vscode-clangd",
-                "vadimcn.vscode-lldb",
+                // "llvm-vs-code-extensions.vscode-clangd", // Alternative language server for C/C++
                 "ms-python.python",
-                "eamodio.gitlens",
                 "github.copilot",
-                "jeff-hykin.better-cpp-syntax",
-                "solomonkinard.workspace-include-what-you-use",
-                "bbenoist.togglehs",
-                "ms-vscode.makefile-tools",
-                "timonwong.shellcheck",
-                "esbenp.prettier-vscode",
-                "kube.42header",
-                "DoKca.42-ft-count-line",
-                "ms-vsliveshare.vsliveshare",
-                "dqisme.sync-scroll",
-                "uctakeoff.vscode-counter",
-                "tomoki1207.pdf"
+                "vadimcn.vscode-lldb", // Improved debugger features
+                "eamodio.gitlens", // Powerful git UI and visualizations
+                "bbenoist.togglehs", // F4 to jump between header and source files
+                "ms-vscode.makefile-tools", // IntelliSense for Makefile
+                "timonwong.shellcheck", // Linter for Shell scripts
+                "esbenp.prettier-vscode", // Code formatter for Markdown, YAML and more
+                "kube.42header", // Ctrl + Alt + H to insert 42 Header
+                "DoKca.42-ft-count-line", // Display function line count
+                "ms-vsliveshare.vsliveshare", // Real-time collaboration
+                "dqisme.sync-scroll", // Scroll multiple editors simultaneously
+                "uctakeoff.vscode-counter", // Count lines of code
+                "tomoki1207.pdf" // Display PDF files in VS Code
             ]
         }
     },
