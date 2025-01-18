@@ -13,6 +13,6 @@ services:
       - ${HOME}/.zshrc:/root/.zshrc:cached
     environment:
       - USER=${USER}
-    user: root
-    command: ["sh", "-c", "sudo chmod -R 755 /app && sleep infinity"]
-    privileged: true
+    working_dir: /app
+    stdin_open: true
+    tty: true
