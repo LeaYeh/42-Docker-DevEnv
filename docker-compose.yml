@@ -1,6 +1,7 @@
 version: '3'
 services:
   run-container:
+    container_name: 42-Docker-DevEnv
     build:
       context: .
       dockerfile: Dockerfile
