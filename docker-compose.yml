@@ -1,6 +1,6 @@
-version: '3'
 services:
   run-container:
+    container_name: 42-Docker-DevEnv
     build:
       context: .
       dockerfile: Dockerfile
@@ -8,7 +8,11 @@ services:
         USER: ${USER}
     volumes:
       - .:/app
+      - ${HOME}/.ssh:/root/.ssh:cached
+      - ${HOME}/.gitconfig:/root/.gitconfig:cached
+      - ${HOME}/.zshrc:/root/.zshrc:cached
     environment:
       - USER=${USER}
-    user: root
-    command: ["sh", "-c", "sudo chmod -R 755 /app && sleep infinity"]
+    working_dir: /app
+    stdin_open: true
+    tty: true
