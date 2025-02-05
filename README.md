@@ -16,6 +16,10 @@ Before you begin, ensure you have met the following requirements:
     * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
 
+> [!NOTE]
+> Building the container the first time can take quite some time.<br>
+> However, it only takes this long for the first time. The next time you open the container it will only take a few seconds.
+
 ---
 
 # Option 1: VS Code specific Dev Container
