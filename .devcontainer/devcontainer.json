@@ -3,7 +3,16 @@
     "build": {
         "dockerfile": "Dockerfile"
     },
-    "runArgs": ["--privileged"],
+    "remoteUser": "devcontainer",
+    "mounts": [
+        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached,readonly=true"
+    ],
+	"features": {
+		"ghcr.io/devcontainers/features/common-utils": {
+            "username": "devcontainer",
+			"configureZshAsDefaultShell": true
+		}
+    },
     "customizations": {
         "vscode": {
             "settings": {
@@ -28,11 +37,5 @@
                 "tomoki1207.pdf" // Display PDF files in VS Code
             ]
         }
-    },
-    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
-    "mounts": [
-        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-        "source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
-        "source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
-    ]
+    }
 }
