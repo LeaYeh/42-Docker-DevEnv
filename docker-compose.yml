@@ -8,7 +8,7 @@ services:
         USER: ${USER}
     volumes:
       - .:/app
-      - ${HOME}/.ssh:/root/.ssh:cached
+      - ${HOME}/.ssh:/root/.ssh:cached,ro
       - ${HOME}/.gitconfig:/root/.gitconfig:cached
       - ${HOME}/.zshrc:/root/.zshrc:cached
     environment:
