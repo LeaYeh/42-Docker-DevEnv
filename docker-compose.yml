@@ -2,7 +2,7 @@ services:
   run-container:
     container_name: 42-Docker-DevEnv
     build:
-      dockerfile: Dockerfile
+      dockerfile: .devcontainer/Dockerfile
       args:
         USER: devcontainer
         WORKSPACE_FOLDER: /workspaces

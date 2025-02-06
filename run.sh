@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# Download latest Dockerfile and docker-compose.yml
-curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/Dockerfile -o Dockerfile
+# Download latest devcontainer and docker-compose.yml
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/install.sh)"
 curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/docker-compose.yml -o docker-compose.yml
 
 # Ensure directories and files to be mounted exist
