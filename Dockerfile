@@ -62,7 +62,9 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     binutils \
     clang \
     clang-14 \
+    clang-tools \
     clang-12 \
+    clang-tools-12 \
     lldb-12 \
     gdb \
     gcc-11=11.4.0-1ubuntu1~22.04 \
