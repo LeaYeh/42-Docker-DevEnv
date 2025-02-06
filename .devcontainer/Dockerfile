@@ -1,4 +1,46 @@
-# Start from Ubuntu 22.04 (Jammy Jellyfish)
+# Builder stage
+FROM ubuntu:22.04 AS builder
+
+# Install build dependencies
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    build-essential \
+    wget \
+    make \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Valgrind 3.18.1
+RUN wget https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 \
+    && tar -xjf valgrind-3.18.1.tar.bz2 \
+    && cd valgrind-3.18.1 \
+    && ./configure \
+    && make \
+    && make install DESTDIR=/install \
+    && cd .. \
+    && rm -rf valgrind-3.18.1*
+
+# Make 4.3
+RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz \
+    && tar -xvzf make-4.3.tar.gz \
+    && cd make-4.3 \
+    && ./configure \
+    && make \
+    && make install DESTDIR=/install \
+    && cd .. \
+    && rm -rf make-4.3*
+
+# Readline 8.1
+RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz \
+    && tar -xzvf readline-8.1.tar.gz \
+    && cd readline-8.1 \
+    && ./configure --enable-shared \
+    && make \
+    && make install DESTDIR=/install \
+    && cd .. \
+    && rm -rf readline-8.1*
+
+
+# Final stage
 FROM ubuntu:22.04
 
 # Add LLVM and GCC repositories
@@ -49,37 +91,8 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 \
     && update-alternatives --install /usr/bin/cc cc /usr/bin/clang-12 100 \
     && update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-12 100
 
-# Valgrind 3.18.1
-RUN wget https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 \
-    && tar -xjf valgrind-3.18.1.tar.bz2 \
-    && cd valgrind-3.18.1 \
-    && ./configure \
-    && make \
-    && make install \
-    && sudo ldconfig \
-    && cd .. \
-    && rm -rf valgrind-3.18.1*
-
-# Make 4.3
-RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz \
-    && tar -xvzf make-4.3.tar.gz \
-    && cd make-4.3 \
-    && ./configure \
-    && make \
-    && sudo make install \
-    && cd .. \
-    && rm -rf make-4.3*
-
-# Readline 8.1
-RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz \
-    && tar -xzvf readline-8.1.tar.gz \
-    && cd readline-8.1 \
-    && ./configure --enable-shared \
-    && make \
-    && sudo make install \
-    && sudo ldconfig \
-    && cd .. \
-    && rm -rf readline-8.1*
+# Copy built artifacts from builder
+COPY --from=builder /install /
 
 # Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
