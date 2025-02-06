@@ -111,6 +111,9 @@ RUN groupadd --gid $USER_GID $USER \
     && echo $USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER \
     && chmod 0440 /etc/sudoers.d/$USER
 
+# Install oh-my-zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 # Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
 RUN chown -R $USER:$USER /opt/venv
@@ -130,10 +133,6 @@ RUN cd $HOME \
 
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
-
-# Install oh-my-zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
 # Change ownership of installed tools to the new user
 RUN chown -R $USER:$USER $HOME
