@@ -11,6 +11,7 @@ services:
       - .:/workspaces/${COMPOSE_PROJECT_NAME:-$(basename $PWD)}
       - ${HOME}/.ssh:/home/devcontainer/.ssh:cached,readonly
       - ${HOME}/.gitconfig:/home/devcontainer/.gitconfig:cached
+      - ${HOME}/.zsh_history:/home/devcontainer/.zsh_history:cached
       # Comment in to load .zshrc from your local environment
       # - ${HOME}/.zshrc:/home/devcontainer/.zshrc:cached
     stdin_open: true

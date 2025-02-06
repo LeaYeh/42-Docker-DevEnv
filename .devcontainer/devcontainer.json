@@ -8,10 +8,11 @@
             "WORKSPACE_NAME": "${localWorkspaceFolderBasename}"
         }
     },
-    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
+    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
     "mounts": [
         "source=${env:HOME}/.ssh,target=/home/devcontainer/.ssh,type=bind,consistency=cached,readonly=true",
         "source=${env:HOME}/.gitconfig,target=/home/devcontainer/.gitconfig,type=bind,consistency=cached",
+        "source=${env:HOME}/.zsh_history,target=/home/devcontainer/.zsh_history,type=bind,consistency=cached",
         // Comment in to load .zshrc from your local environment
         // "source=${env:HOME}/.zshrc,target=/home/devcontainer/.zshrc,type=bind,consistency=cached"
     ],

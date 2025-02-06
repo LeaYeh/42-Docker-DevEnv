@@ -6,7 +6,7 @@ curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/docker
 
 # Ensure directories and files to be mounted exist
 mkdir -p "${HOME}/.ssh"
-touch "${HOME}/.gitconfig" "${HOME}/.zshrc"
+touch "${HOME}/.gitconfig" "${HOME}/.zsh_history" "${HOME}/.zshrc"
 
 # Build and run the container
 docker-compose up --build -d run-container
