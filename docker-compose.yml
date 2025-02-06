@@ -2,17 +2,16 @@ services:
   run-container:
     container_name: 42-Docker-DevEnv
     build:
-      context: .
       dockerfile: Dockerfile
       args:
-        USER: ${USER}
+        USER: devcontainer
+        WORKSPACE_FOLDER: /workspaces
+        WORKSPACE_NAME: ${COMPOSE_PROJECT_NAME:-$(basename $PWD)}
     volumes:
-      - .:/app
-      - ${HOME}/.ssh:/root/.ssh:cached,ro
-      - ${HOME}/.gitconfig:/root/.gitconfig:cached
-      - ${HOME}/.zshrc:/root/.zshrc:cached
-    environment:
-      - USER=${USER}
-    working_dir: /app
+      - .:/workspaces/${COMPOSE_PROJECT_NAME:-$(basename $PWD)}
+      - ${HOME}/.ssh:/home/devcontainer/.ssh:cached,readonly
+      - ${HOME}/.gitconfig:/home/devcontainer/.gitconfig:cached
+      # Comment in to load .zshrc from your local environment
+      # - ${HOME}/.zshrc:/home/devcontainer/.zshrc:cached
     stdin_open: true
     tty: true

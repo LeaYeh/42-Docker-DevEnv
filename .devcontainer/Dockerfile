@@ -96,6 +96,21 @@ RUN update-alternatives --install /usr/bin/clang clang /usr/bin/clang-12 100 \
 # Copy built artifacts from builder
 COPY --from=builder /install /
 
+# Configure default user and workspace paths
+# These can be overridden at build time using --build-arg
+ARG USER=devcontainer
+ARG USER_UID=1000
+ARG USER_GID=1000
+ARG WORKSPACE_FOLDER=/workspaces
+ARG WORKSPACE_NAME=app
+ARG HOME=/home/$USER
+
+# Create the user
+RUN groupadd --gid $USER_GID $USER \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USER \
+    && echo $USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER \
+    && chmod 0440 /etc/sudoers.d/$USER
+
 # Create a virtual environment and activate it
 RUN python3 -m venv /opt/venv
 RUN chown -R $USER:$USER /opt/venv
@@ -110,17 +125,24 @@ RUN cd $HOME \
     && git clone https://github.com/42Paris/minilibx-linux.git \
     && cd minilibx-linux \
     && make \
-    && sudo cp mlx.h /usr/local/include \
-    && sudo cp libmlx.a /usr/local/lib
+    && cp mlx.h /usr/local/include \
+    && cp libmlx.a /usr/local/lib
 
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
 # Install oh-my-zsh
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 RUN echo "source $HOME/.oh-my-zsh/oh-my-zsh.sh" >> $HOME/.zshrc
 
+# Change ownership of installed tools to the new user
+RUN chown -R $USER:$USER $HOME
+
+# Set the default user for the container
+USER $USER
+ENV USER=$USER
+
 # Set the working directory in the container
-WORKDIR /app
+WORKDIR "$WORKSPACE_FOLDER/$WORKSPACE_NAME"
 
 CMD ["/bin/zsh"]

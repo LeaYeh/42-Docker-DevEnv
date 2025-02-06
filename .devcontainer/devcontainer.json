@@ -1,18 +1,20 @@
 {
     "name": "42-Docker-DevEnv",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "args": {
+            "USER": "devcontainer",
+            "WORKSPACE_FOLDER": "/workspaces",
+            "WORKSPACE_NAME": "${localWorkspaceFolderBasename}"
+        }
     },
-    "remoteUser": "devcontainer",
+    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
     "mounts": [
-        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached,readonly=true"
+        "source=${env:HOME}/.ssh,target=/home/devcontainer/.ssh,type=bind,consistency=cached,readonly=true",
+        "source=${env:HOME}/.gitconfig,target=/home/devcontainer/.gitconfig,type=bind,consistency=cached",
+        // Comment in to load .zshrc from your local environment
+        // "source=${env:HOME}/.zshrc,target=/home/devcontainer/.zshrc,type=bind,consistency=cached"
     ],
-	"features": {
-		"ghcr.io/devcontainers/features/common-utils": {
-            "username": "devcontainer",
-			"configureZshAsDefaultShell": true
-		}
-    },
     "customizations": {
         "vscode": {
             "settings": {
