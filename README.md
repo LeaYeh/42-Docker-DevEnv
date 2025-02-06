@@ -35,7 +35,8 @@ Before you begin, ensure you have met the following requirements:
 
 ## Usage
 
-Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`.
+Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`:
+
 ![screenshot](doc/img/ReopenInContainer.png)
 
 ---
@@ -52,7 +53,14 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 
 ## Usage
 
-Attach the container to new VS Code window.
+Attach in the shell:
+
+```sh
+docker exec -it $(docker-compose ps -q run-container) /bin/zsh
+```
+
+Or attach to VS Code:
+
 ![screenshot](doc/img/HowToAttachWithVScode.png)
 
 ---
