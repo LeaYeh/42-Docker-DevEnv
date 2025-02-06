@@ -137,6 +137,9 @@ RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/maste
 # Change ownership of installed tools to the new user
 RUN chown -R $USER:$USER $HOME
 
+# Change zsh history to append mode to avoid error messages
+RUN echo "unsetopt HIST_SAVE_BY_COPY" >> /etc/zsh/zshrc
+
 # Set the default user for the container
 USER $USER
 ENV USER=$USER
