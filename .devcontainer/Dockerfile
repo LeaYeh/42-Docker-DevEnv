@@ -125,41 +125,42 @@ RUN python3 -m pip install norminette
 
 # Configure default user and workspace paths
 # These can be overridden at build time using --build-arg
-ARG USER=devcontainer
-ARG USER_UID=1000
-ARG USER_GID=1000
-ARG WORKSPACE_FOLDER=/workspaces
-ARG WORKSPACE_NAME=app
-ARG HOME=/home/$USER
+ARG USERNAME=devcontainer
+ARG UID=1000
+ARG GID=1000
 
 # Create the user
-RUN groupadd --gid $USER_GID $USER \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USER \
-    && echo $USER ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USER \
-    && chmod 0440 /etc/sudoers.d/$USER
+RUN groupadd --gid $GID $USERNAME \
+    && useradd --uid $UID --gid $GID -m $USERNAME \
+    && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
+    && chmod 0440 /etc/sudoers.d/$USERNAME
+
+# Set the default home directory
+ARG HOME=/home/$USERNAME
 
 # Install oh-my-zsh
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
 # Create a virtual environment and activate it
-RUN python3 -m venv /opt/venv
-RUN chown -R $USER:$USER /opt/venv
+RUN python3 -m venv /opt/venv \
+    && chown -R $USERNAME:$USERNAME /opt/venv
 ENV PATH="/opt/venv/bin:$PATH"
 
 # Install francinette
 RUN bash -c "$(curl -fsSL https://raw.github.com/xicodomingues/francinette/master/bin/install.sh)"
 
 # Change ownership of installed tools to the new user
-RUN chown -R $USER:$USER $HOME
+RUN chown -R $USERNAME:$USERNAME $HOME
 
 # Change zsh history to append mode to avoid error messages
 RUN echo "unsetopt HIST_SAVE_BY_COPY" >> /etc/zsh/zshrc
 
 # Set the default user for the container
-USER $USER
-ENV USER=$USER
+USER $USERNAME
+ENV USER=$USERNAME
 
 # Set the working directory in the container
-WORKDIR "$WORKSPACE_FOLDER/$WORKSPACE_NAME"
+ARG WORKSPACE_FOLDER=/app
+WORKDIR "/${WORKSPACE_FOLDER#/}"
 
 CMD ["/bin/zsh"]

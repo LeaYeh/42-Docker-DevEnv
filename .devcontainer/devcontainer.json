@@ -3,16 +3,17 @@
     "build": {
         "dockerfile": "Dockerfile",
         "args": {
-            "USER": "devcontainer",
-            "WORKSPACE_FOLDER": "/workspaces",
-            "WORKSPACE_NAME": "${localWorkspaceFolderBasename}"
+            "USERNAME": "${env:USERNAME:devcontainer}",
+            "UID": "${env:UID:1000}",
+            "GID": "${env:GID:1000}",
+            "WORKSPACE_FOLDER": "/workspaces/${localWorkspaceFolderBasename}"
         }
     },
     "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
     "mounts": [
-        "source=${env:HOME}/.ssh,target=/home/devcontainer/.ssh,type=bind,consistency=cached,readonly=true",
-        "source=${env:HOME}/.gitconfig,target=/home/devcontainer/.gitconfig,type=bind,consistency=cached",
-        "source=${env:HOME}/.zsh_history,target=/home/devcontainer/.zsh_history,type=bind,consistency=cached",
+        "source=${env:HOME}/.ssh,target=/home/${env:USERNAME:devcontainer}/.ssh,type=bind,consistency=cached,readonly=true",
+        "source=${env:HOME}/.gitconfig,target=/home/${env:USERNAME:devcontainer}/.gitconfig,type=bind,consistency=cached",
+        "source=${env:HOME}/.zsh_history,target=/home/${env:USERNAME:devcontainer}/.zsh_history,type=bind,consistency=cached",
         // Comment in to load .zshrc from your local environment
         // "source=${env:HOME}/.zshrc,target=/home/devcontainer/.zshrc,type=bind,consistency=cached"
     ],
