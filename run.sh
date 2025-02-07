@@ -9,10 +9,10 @@ mkdir -p "${HOME}/.ssh"
 touch "${HOME}/.gitconfig" "${HOME}/.zsh_history" "${HOME}/.zshrc"
 
 # Build and run the container
-docker-compose up --build -d run-container
+docker-compose up --build -d 42-docker-devenv
 
 # Print helpful message
 echo "Container is running! To attach to it, use:"
-echo "docker exec -it \$(docker-compose ps -q run-container) /bin/zsh"
+echo "docker exec -it \$(docker-compose ps -q 42-docker-devenv) /bin/zsh"
 echo
 echo "Check the README how to attach to the container with VS Code."

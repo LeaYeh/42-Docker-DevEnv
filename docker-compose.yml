@@ -1,5 +1,5 @@
 services:
-  run-container:
+  42-docker-devenv:
     container_name: ${COMPOSE_PROJECT_NAME}
     build:
       dockerfile: .devcontainer/Dockerfile

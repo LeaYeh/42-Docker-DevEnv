@@ -56,7 +56,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 Attach in the shell:
 
 ```sh
-docker exec -it $(docker-compose ps -q run-container) /bin/zsh
+docker exec -it $(docker-compose ps -q 42-docker-devenv) /bin/zsh
 ```
 
 Or attach to VS Code:

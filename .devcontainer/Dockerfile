@@ -57,7 +57,7 @@ RUN git clone https://github.com/42Paris/minilibx-linux.git \
 
 
 # Final stage
-FROM ubuntu:22.04
+FROM ubuntu:22.04 AS final
 
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y \
