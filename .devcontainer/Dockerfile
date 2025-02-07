@@ -4,10 +4,10 @@ FROM ubuntu:22.04 AS builder
 # Install build dependencies
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
     build-essential \
-    wget \
-    make \
     gcc \
-    && rm -rf /var/lib/apt/lists/*
+    make \
+    wget \
+    && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Valgrind 3.18.1
 RUN wget https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 \
@@ -43,46 +43,54 @@ RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz \
 # Final stage
 FROM ubuntu:22.04
 
-# Add LLVM and GCC repositories
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get -y install \
-    wget \
+# Install packages
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y \
+    # System utilities
+    curl \
+    git \
     gnupg \
     software-properties-common \
+    sudo \
+    wget \
+    zsh \
+    # Add LLVM and GCC repositories
     && wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add - \
     && add-apt-repository "deb http://apt.llvm.org/focal/ llvm-toolchain-focal-12 main" \
-    && add-apt-repository ppa:ubuntu-toolchain-r/test
-
-# Update the system and install utils
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-    sudo \
-    cmake \
-    meson \
-    valgrind \
-    build-essential \
+    && add-apt-repository ppa:ubuntu-toolchain-r/test \
+    && apt-get install -y \
+    # Build tools and compilers
     binutils \
+    build-essential \
     clang \
     clang-14 \
-    clang-tools \
     clang-12 \
-    clang-tools-12 \
-    lldb-12 \
-    gdb \
+    cmake \
     gcc-11=11.4.0-1ubuntu1~22.04 \
     g++-11=11.4.0-1ubuntu1~22.04 \
     gcc-10=10.5.0-1ubuntu1~22.04 \
     g++-10=10.5.0-1ubuntu1~22.04 \
-    zsh \
-    git \
-    wget \
-    curl \
-    python3 python3-venv python3-pip \
+    meson \
+    # Development tools
+    clang-tools \
+    clang-tools-12 \
+    clangd \
+    cppcheck \
+    gdb \
+    lldb-12 \
+    valgrind \
+    # Libraries
+    libbsd-dev \
+    libcmocka-dev \
     libreadline-dev \
     libreadline8 \
-    xorg libxext-dev zlib1g-dev libbsd-dev \
-    libcmocka-dev \
+    libxext-dev \
     pkg-config \
-    cppcheck \
-    clangd \
+    xorg \
+    zlib1g-dev \
+    # User utilities
+    python3 \
+    python3-pip \
+    python3-venv \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Set up compiler aliases
