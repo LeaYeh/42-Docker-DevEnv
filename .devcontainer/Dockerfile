@@ -2,8 +2,9 @@
 FROM ubuntu:22.04 AS builder
 
 # Install build dependencies
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     build-essential \
+    ca-certificates \
     gcc \
     git \
     make \
@@ -18,8 +19,8 @@ RUN wget https://sourceware.org/pub/valgrind/valgrind-3.18.1.tar.bz2 \
     && tar -xjf valgrind-3.18.1.tar.bz2 \
     && cd valgrind-3.18.1 \
     && ./configure \
-    && make \
-    && make install DESTDIR=/install \
+    && make -j \
+    && make -j install DESTDIR=/install \
     && cd .. \
     && rm -rf valgrind-3.18.1*
 
@@ -28,8 +29,8 @@ RUN wget http://ftp.gnu.org/gnu/make/make-4.3.tar.gz \
     && tar -xvzf make-4.3.tar.gz \
     && cd make-4.3 \
     && ./configure \
-    && make \
-    && make install DESTDIR=/install \
+    && make -j \
+    && make -j install DESTDIR=/install \
     && cd .. \
     && rm -rf make-4.3*
 
@@ -38,15 +39,15 @@ RUN wget https://ftp.gnu.org/gnu/readline/readline-8.1.tar.gz \
     && tar -xzvf readline-8.1.tar.gz \
     && cd readline-8.1 \
     && ./configure --enable-shared \
-    && make \
-    && make install DESTDIR=/install \
+    && make -j \
+    && make -j install DESTDIR=/install \
     && cd .. \
     && rm -rf readline-8.1*
 
 # Install MLX library
 RUN git clone https://github.com/42Paris/minilibx-linux.git \
     && cd minilibx-linux \
-    && make \
+    && make -j \
     && mkdir -p /install/usr/local/lib \
     && mkdir -p /install/usr/local/include \
     && cp libmlx.a /install/usr/local/lib \
