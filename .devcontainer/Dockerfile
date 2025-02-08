@@ -50,8 +50,11 @@ RUN git clone https://github.com/42Paris/minilibx-linux.git \
     && make -j \
     && mkdir -p /install/usr/local/lib \
     && mkdir -p /install/usr/local/include \
+    && mkdir -p /install/usr/local/share/man/man3 \
     && cp libmlx.a /install/usr/local/lib \
     && cp mlx.h /install/usr/local/include \
+    && gzip -9 man/man3/mlx*.3 \
+    && cp man/man3/mlx*.3.gz /install/usr/local/share/man/man3 \
     && cd .. \
     && rm -rf minilibx-linux
 
@@ -59,8 +62,23 @@ RUN git clone https://github.com/42Paris/minilibx-linux.git \
 # Final stage
 FROM ubuntu:22.04 AS final
 
+# Comment out man and doc exclusions from Minimal Ubuntu base image to keep documentation
+RUN sed -i \
+    -e '/path-exclude=\/usr\/share\/man/s/^/#/' \
+    -e '/path-exclude=\/usr\/share\/doc/s/^/#/' \
+    /etc/dpkg/dpkg.cfg.d/excludes || true
+
 # Install packages
 RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -y \
+    # Man pages
+    man-db \
+    manpages \
+    manpages-dev \
+    manpages-posix \
+    manpages-posix-dev \
+    && /usr/bin/mandb \
+    && mv /usr/bin/man.REAL /usr/bin/man \
+    && apt-get install -y \
     # System utilities
     curl \
     git \
