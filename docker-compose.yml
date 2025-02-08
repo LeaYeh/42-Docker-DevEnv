@@ -2,18 +2,21 @@ services:
   42-docker-devenv:
     container_name: ${COMPOSE_PROJECT_NAME}
     build:
-      dockerfile: .devcontainer/Dockerfile
+      context: .devcontainer
+      dockerfile: Dockerfile
       args:
         USERNAME: ${USERNAME:-devcontainer}
         UID: ${UID:-1000}
         GID: ${GID:-1000}
         WORKSPACE_FOLDER: /${WORKSPACE_FOLDER:-workspaces/${COMPOSE_PROJECT_NAME}}
     volumes:
+      # Synced
       - .:/${WORKSPACE_FOLDER:-workspaces/${COMPOSE_PROJECT_NAME}}
-      - ${HOME}/.ssh:/home/${USERNAME:-devcontainer}/.ssh:cached,readonly
-      - ${HOME}/.gitconfig:/home/${USERNAME:-devcontainer}/.gitconfig:cached
       - ${HOME}/.zsh_history:/home/${USERNAME:-devcontainer}/.zsh_history:cached
+      # Read-only and copy
+      - ${HOME}/.ssh:/mnt/.ssh:cached,ro
+      - ${HOME}/.gitconfig:/mnt/.gitconfig:cached,ro
       # Comment in to load .zshrc from your local environment
-      # - ${HOME}/.zshrc:/home/${USERNAME:-devcontainer}/.zshrc:cached
+      # - ${HOME}/.zshrc:/mnt/.zshrc:cached,ro
     stdin_open: true
     tty: true

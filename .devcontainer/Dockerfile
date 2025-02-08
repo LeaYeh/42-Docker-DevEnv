@@ -126,6 +126,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     python3-pip \
     python3-venv \
     ncdu \
+    rsync \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Set up compiler aliases
@@ -175,6 +176,10 @@ RUN chown -R $USERNAME:$USERNAME $HOME
 # Change zsh history to append mode to avoid error messages
 RUN echo "unsetopt HIST_SAVE_BY_COPY" >> /etc/zsh/zshrc
 
+# Copy entrypoint script from build context
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 # Set the default user
 USER $USERNAME
 ENV USER=$USERNAME
@@ -186,4 +191,5 @@ ENV SHELL=/bin/zsh
 ARG WORKSPACE_FOLDER=/app
 WORKDIR "/${WORKSPACE_FOLDER#/}"
 
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
 CMD [ "/bin/zsh" ]

@@ -2,6 +2,7 @@
     "name": "42-Docker-DevEnv",
     "build": {
         "dockerfile": "Dockerfile",
+        "context": ".",
         "args": {
             "USERNAME": "${env:USERNAME:devcontainer}",
             "UID": "${env:UID:1000}",
@@ -10,12 +11,15 @@
         }
     },
     "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
+    "postCreateCommand": "entrypoint.sh",
     "mounts": [
-        "source=${env:HOME}/.ssh,target=/home/${env:USERNAME:devcontainer}/.ssh,type=bind,consistency=cached,readonly=true",
-        "source=${env:HOME}/.gitconfig,target=/home/${env:USERNAME:devcontainer}/.gitconfig,type=bind,consistency=cached",
+        // Synced
         "source=${env:HOME}/.zsh_history,target=/home/${env:USERNAME:devcontainer}/.zsh_history,type=bind,consistency=cached",
+        // Read-only and copy
+        "source=${env:HOME}/.gitconfig,target=/mnt/.gitconfig,type=bind,consistency=cached,readonly=true",
+        "source=${env:HOME}/.ssh,target=/mnt/.ssh,type=bind,consistency=cached,readonly=true",
         // Comment in to load .zshrc from your local environment
-        // "source=${env:HOME}/.zshrc,target=/home/devcontainer/.zshrc,type=bind,consistency=cached"
+        // "source=${env:HOME}/.zshrc,target=/mnt/.zshrc,type=bind,consistency=cached,readonly=true"
     ],
     "customizations": {
         "vscode": {
