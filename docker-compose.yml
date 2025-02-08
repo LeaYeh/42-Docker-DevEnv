@@ -14,9 +14,11 @@ services:
       - .:/${WORKSPACE_FOLDER:-workspaces/${COMPOSE_PROJECT_NAME}}
       - ${HOME}/.zsh_history:/home/${USERNAME:-devcontainer}/.zsh_history:cached
       # Read-only and copy
-      - ${HOME}/.ssh:/mnt/.ssh:cached,ro
       - ${HOME}/.gitconfig:/mnt/.gitconfig:cached,ro
-      # Comment in to load .zshrc from your local environment
+      - ${HOME}/.ssh:/mnt/.ssh:cached,ro
+      # Comment in to load shell config files from your local environment
+      # - ${HOME}/.bashrc:/mnt/.bashrc:cached,ro
+      # - ${HOME}/.config/fish:/mnt/.config/fish:cached,ro
       # - ${HOME}/.zshrc:/mnt/.zshrc:cached,ro
     stdin_open: true
     tty: true

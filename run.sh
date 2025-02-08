@@ -5,8 +5,14 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/main/docker-compose.yml -o docker-compose.yml
 
 # Ensure directories and files to be mounted exist
-mkdir -p "${HOME}/.ssh"
-touch "${HOME}/.gitconfig" "${HOME}/.zsh_history" "${HOME}/.zshrc"
+mkdir -p \
+    "$HOME/.config/fish/" \
+    "$HOME/.ssh"
+touch \
+    "$HOME/.bashrc" \
+    "$HOME/.gitconfig" \
+    "$HOME/.zsh_history" \
+    "$HOME/.zshrc"
 
 # Build and run the container
 docker-compose up --build -d 42-docker-devenv

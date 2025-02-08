@@ -122,6 +122,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     xorg \
     zlib1g-dev \
     # User utilities
+    fish \
     python3 \
     python3-pip \
     python3-venv \

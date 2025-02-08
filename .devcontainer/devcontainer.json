@@ -10,7 +10,8 @@
             "WORKSPACE_FOLDER": "/workspaces/${localWorkspaceFolderBasename}"
         }
     },
-    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
+    // Ensure directories and files to be mounted exist
+    "initializeCommand": "mkdir -p ${env:HOME}/.config/fish ${env:HOME}/.ssh && touch ${env:HOME}/.bashrc ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
     "postCreateCommand": "entrypoint.sh",
     "mounts": [
         // Synced
@@ -18,8 +19,10 @@
         // Read-only and copy
         "source=${env:HOME}/.gitconfig,target=/mnt/.gitconfig,type=bind,consistency=cached,readonly=true",
         "source=${env:HOME}/.ssh,target=/mnt/.ssh,type=bind,consistency=cached,readonly=true",
-        // Comment in to load .zshrc from your local environment
-        // "source=${env:HOME}/.zshrc,target=/mnt/.zshrc,type=bind,consistency=cached,readonly=true"
+        // Comment in to load shell config files from your local environment
+        // "source=${env:HOME}/.bashrc,target=/mnt/.bashrc,type=bind,consistency=cached,readonly=true",
+        // "source=${env:HOME}/.config/fish,target=/mnt/.config/fish,type=bind,consistency=cached,readonly=true",
+        // "source=${env:HOME}/.zshrc,target=/mnt/.zshrc,type=bind,consistency=cached,readonly=true",
     ],
     "customizations": {
         "vscode": {
