@@ -175,12 +175,15 @@ RUN chown -R $USERNAME:$USERNAME $HOME
 # Change zsh history to append mode to avoid error messages
 RUN echo "unsetopt HIST_SAVE_BY_COPY" >> /etc/zsh/zshrc
 
-# Set the default user for the container
+# Set the default user
 USER $USERNAME
 ENV USER=$USERNAME
+
+# Set useful environment variables
+ENV SHELL=/bin/zsh
 
 # Set the working directory in the container
 ARG WORKSPACE_FOLDER=/app
 WORKDIR "/${WORKSPACE_FOLDER#/}"
 
-CMD ["/bin/zsh"]
+CMD [ "/bin/zsh" ]
