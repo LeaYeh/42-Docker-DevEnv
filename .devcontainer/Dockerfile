@@ -107,6 +107,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     python3 \
     python3-pip \
     python3-venv \
+    ncdu \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Set up compiler aliases
