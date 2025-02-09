@@ -11,7 +11,10 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     wget \
     # Minilibx dependencies
     libbsd-dev \
+    libx11-dev \
     libxext-dev \
+    xorg \
+    zlib1g-dev \
     && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 # Valgrind 3.18.1
@@ -118,6 +121,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     libcmocka-dev \
     libreadline-dev \
     libreadline8 \
+    libx11-dev \
     libxext-dev \
     pkg-config \
     xorg \
