@@ -83,6 +83,7 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     curl \
     git \
     gnupg \
+    locales \
     software-properties-common \
     sudo \
     wget \
@@ -187,6 +188,7 @@ ENV USER=$USERNAME
 
 # Set useful environment variables
 ENV SHELL=/bin/zsh
+ENV LANG=C.UTF-8
 
 # Set the working directory in the container
 ARG WORKSPACE_FOLDER=/app
