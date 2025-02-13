@@ -128,6 +128,8 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive && apt-get install -
     zlib1g-dev \
     # User utilities
     fish \
+    #TODO Maybe don't install git-lfs if it's also not on campus
+    git-lfs \
     python3 \
     python3-pip \
     python3-venv \
@@ -198,5 +200,6 @@ ENV LANG=C.UTF-8
 ARG WORKSPACE_FOLDER=/app
 WORKDIR "/${WORKSPACE_FOLDER#/}"
 
-ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ] #TODO Manual docker run will now fail bc this script will not exist
+#! This also fails atm?? `docker-compose up --build -d 42-docker-devenv && docker exec -it $(docker-compose ps -q 42-docker-devenv) /bin/zsh`
 CMD [ "/bin/zsh" ]

@@ -11,7 +11,7 @@
         }
     },
     // Ensure directories and files to be mounted exist
-    "initializeCommand": "mkdir -p ${env:HOME}/.config/fish ${env:HOME}/.ssh && touch ${env:HOME}/.bashrc ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc",
+    "initializeCommand": "mkdir -p ${env:HOME}/.config/fish ${env:HOME}/.ssh && touch ${env:HOME}/.bashrc ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc", //TODO This fails on Windows
     "postCreateCommand": "entrypoint.sh",
     "mounts": [
         // Synced
