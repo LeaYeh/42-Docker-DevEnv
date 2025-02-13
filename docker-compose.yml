@@ -1,18 +1,24 @@
 services:
-  run-container:
-    container_name: 42-Docker-DevEnv
+  42-docker-devenv:
+    container_name: ${COMPOSE_PROJECT_NAME}
     build:
-      context: .
+      context: .devcontainer
       dockerfile: Dockerfile
       args:
-        USER: ${USER}
+        USERNAME: ${USERNAME:-devcontainer}
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+        WORKSPACE_FOLDER: /${WORKSPACE_FOLDER:-workspaces/${COMPOSE_PROJECT_NAME}}
     volumes:
-      - .:/app
-      - ${HOME}/.ssh:/root/.ssh:cached
-      - ${HOME}/.gitconfig:/root/.gitconfig:cached
-      - ${HOME}/.zshrc:/root/.zshrc:cached
-    environment:
-      - USER=${USER}
-    working_dir: /app
+      # Synced
+      - .:/${WORKSPACE_FOLDER:-workspaces/${COMPOSE_PROJECT_NAME}}
+      - ${HOME}/.zsh_history:/home/${USERNAME:-devcontainer}/.zsh_history:cached
+      # Read-only and copy
+      - ${HOME}/.gitconfig:/mnt/.gitconfig:cached,ro
+      - ${HOME}/.ssh:/mnt/.ssh:cached,ro
+      # Comment in to load shell config files from your local environment
+      # - ${HOME}/.bashrc:/mnt/.bashrc:cached,ro
+      # - ${HOME}/.config/fish:/mnt/.config/fish:cached,ro
+      # - ${HOME}/.zshrc:/mnt/.zshrc:cached,ro
     stdin_open: true
     tty: true

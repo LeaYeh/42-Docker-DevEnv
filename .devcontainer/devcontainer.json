@@ -1,9 +1,29 @@
 {
     "name": "42-Docker-DevEnv",
     "build": {
-        "dockerfile": "Dockerfile"
+        "dockerfile": "Dockerfile",
+        "context": ".",
+        "args": {
+            "USERNAME": "${env:USERNAME:devcontainer}",
+            "UID": "${env:UID:1000}",
+            "GID": "${env:GID:1000}",
+            "WORKSPACE_FOLDER": "/workspaces/${localWorkspaceFolderBasename}"
+        }
     },
-    "runArgs": ["--privileged"],
+    // Ensure directories and files to be mounted exist
+    "initializeCommand": "mkdir -p ${env:HOME}/.config/fish ${env:HOME}/.ssh && touch ${env:HOME}/.bashrc ${env:HOME}/.gitconfig ${env:HOME}/.zsh_history ${env:HOME}/.zshrc", //TODO This fails on Windows
+    "postCreateCommand": "entrypoint.sh",
+    "mounts": [
+        // Synced
+        "source=${env:HOME}/.zsh_history,target=/home/${env:USERNAME:devcontainer}/.zsh_history,type=bind,consistency=cached",
+        // Read-only and copy
+        "source=${env:HOME}/.gitconfig,target=/mnt/.gitconfig,type=bind,consistency=cached,readonly=true",
+        "source=${env:HOME}/.ssh,target=/mnt/.ssh,type=bind,consistency=cached,readonly=true",
+        // Comment in to load shell config files from your local environment
+        // "source=${env:HOME}/.bashrc,target=/mnt/.bashrc,type=bind,consistency=cached,readonly=true",
+        // "source=${env:HOME}/.config/fish,target=/mnt/.config/fish,type=bind,consistency=cached,readonly=true",
+        // "source=${env:HOME}/.zshrc,target=/mnt/.zshrc,type=bind,consistency=cached,readonly=true",
+    ],
     "customizations": {
         "vscode": {
             "settings": {
@@ -28,11 +48,5 @@
                 "tomoki1207.pdf" // Display PDF files in VS Code
             ]
         }
-    },
-    "initializeCommand": "mkdir -p ${env:HOME}/.ssh && touch ${env:HOME}/.gitconfig ${env:HOME}/.zshrc",
-    "mounts": [
-        "source=${env:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached",
-        "source=${env:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
-        "source=${env:HOME}/.zshrc,target=/root/.zshrc,type=bind,consistency=cached"
-    ]
+    }
 }

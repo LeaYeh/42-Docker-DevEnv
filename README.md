@@ -6,6 +6,9 @@ This repository is created for 42Campus students to have the same environment as
 
 The configuration is based on 42 Vienna's installed versions and tools.
 
+// TODO Need to write somewhere that on WSL minilibx might not work, depends on your os versions
+// Make sure to wsl.exe --update, sudo apt udpate && sudo apt upgrade
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -15,6 +18,14 @@ Before you begin, ensure you have met the following requirements:
     * [Remote Explorer](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-explorer)
     * [Docker](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-docker)
     * [Dev-Container](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+- If you don't use VS Code:
+    * npm: `sudo apt install npm`
+    * NodeJS: `sudo npm install -g n && sudo n stable`
+    * Dev Container CLI: `npm install -g @devcontainers/cli`
+
+> [!NOTE]
+> Building the container the first time can take quite some time.<br>
+> However, it only takes this long for the first time. The next time you open the container it will only take a few seconds.
 
 ---
 
@@ -31,7 +42,8 @@ Before you begin, ensure you have met the following requirements:
 
 ## Usage
 
-Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`.
+Open the Command Palette (`Ctrl+Shift+P`) and select `Dev Containers: Reopen in Container`:
+
 ![screenshot](doc/img/ReopenInContainer.png)
 
 ---
@@ -48,7 +60,14 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/LeaYeh/42-Docker-DevEnv/
 
 ## Usage
 
-Attach the container to new VS Code window.
+Attach in the shell:
+
+```sh
+docker exec -it $(docker-compose ps -q 42-docker-devenv) /bin/zsh
+```
+
+Or attach to VS Code:
+
 ![screenshot](doc/img/HowToAttachWithVScode.png)
 
 ---
